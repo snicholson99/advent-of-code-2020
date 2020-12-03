@@ -1001,30 +1001,36 @@ const passwordData = [
   "8-9 w: wwwwwwwxww"
 ];
 
+// part one
+// const getNumberOfValidPasswords = (passwordData) => {
+//   let validPasswords = [];
+//   passwordData.forEach(item => {
+//     const password = item.split(': ')[1];
+//     const minDuplicates = item.match(/^.*?(?=-)/)[0];
+//     const maxDuplicates = item.match(/-.*?(?=[ :])/)[0].substring(1);
+//     const character = item.match(/.(?=:)/)[0];
+//     let duplicatesCount = 0;
+//     for(i = 0; i < password.length; i++) {
+//       if (password[i] === character) {
+//         duplicatesCount ++;
+//       }
+//     }
+//     if (duplicatesCount >= minDuplicates && duplicatesCount <= maxDuplicates) {
+//       validPasswords.push(item);
+//     }
+//   });
+//   console.log(validPasswords.length);
+// }
+
+// part two
 const getNumberOfValidPasswords = (passwordData) => {
   let validPasswords = [];
   passwordData.forEach(item => {
     const password = item.split(': ')[1];
-    const minDuplicates = item.match(/^.*?(?=-)/)[0];
-    const maxDuplicates = item.match(/-.*?(?=[ :])/)[0].substring(1);
+    const firstPosition = Number(item.match(/^.*?(?=-)/)[0]) - 1;
+    const secondPosition = Number(item.match(/-.*?(?=[ :])/)[0].substring(1)) - 1;
     const character = item.match(/.(?=:)/)[0];
-    // count starts at -1 as first count is not a duplicate
-    let duplicatesCount = -1;
-    for(i = 0; i < password.length; i++) {
-      if (password[i] === character) {
-        duplicatesCount ++;
-      }
-    }
-    console.log(
-      password,
-      minDuplicates,
-      maxDuplicates,
-      character,
-      duplicatesCount,
-      duplicatesCount >= minDuplicates,
-      duplicatesCount <= maxDuplicates
-    );
-    if ((duplicatesCount >= minDuplicates || minDuplicates === 0) && duplicatesCount <= maxDuplicates) {
+    if ((password[firstPosition] === character && password[secondPosition] !== character) || (password[secondPosition] === character && password[firstPosition] !== character)) {
       validPasswords.push(item);
     }
   });
