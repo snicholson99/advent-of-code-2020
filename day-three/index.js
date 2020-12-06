@@ -2,13 +2,13 @@ const tobogganMap = "....#...............##...#...#.#...#..#.....##.##.#.##....#
 
 const countTrees = (map) => {
   let trees = 0;
-  let positionCounter = 36;
-  for(i = 0; i < map.length; i = i + positionCounter) {
+  const width = 31;
+  const jump = 1 * width + 3; // 3 across, one down
+  for (i = 0; i < map.length; i += jump) {
     console.log(i);
     if (map[i] === "#") {
       trees++;
     }
-    // positionCounter++;
   }
   console.log(trees);
 }
